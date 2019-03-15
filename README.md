@@ -53,7 +53,7 @@ Catatan: Tidak boleh menggunakan crontab
 	
 	```c
 	if ((dir = opendir ("/home/affan/modul2/hatiku/")) != NULL) {
-    		while ((rent = readdir(dir))!=NULL){
+		while ((rent = readdir(dir))!=NULL){
 			strcpy(file, rent->d_name);
 			struct stat st={0};
 			struct passwd *owner = getpwuid(st.st_uid);
@@ -65,7 +65,7 @@ Catatan: Tidak boleh menggunakan crontab
 			}
 		}
     		closedir(dir);
-    	}
+	}
 	```
 	
 	Karena menghapus tiap 3 detik, daemon di-*setting* `sleep(3);`.
