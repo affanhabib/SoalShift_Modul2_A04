@@ -48,15 +48,15 @@ int main() {
     	DIR *dr = opendir("/home/affan/modul2/gambar"); 
 
         if (dr != NULL)	{
-		    while ((de = readdir(dr)) != NULL) {
-			    char *end = strrchr(de->d_name, '.');
-			    if(strcmp(end, ".png") == 0) {	
-				    strcpy(opo1, opo);
-				    strcpy(apa1, opo);
-
-				    strcpy(nama_awal, de->d_name);			
-				    de->d_name[strlen(de->d_name)-4]='\0';
-				    strcpy(name, de->d_name);
+            while ((de = readdir(dr)) != NULL) {
+                 char *end = strrchr(de->d_name, '.');
+                 if(strcmp(end, ".png") == 0) {	
+                     strcpy(opo1, opo);
+                     strcpy(apa1, opo);
+                     
+                     strcpy(nama_awal, de->d_name);
+                     de->d_name[strlen(de->d_name)-4]='\0';
+                     strcpy(name, de->d_name);
 						
                     strcat(name,"_grey.png");
                     strcat(opo1, name);
