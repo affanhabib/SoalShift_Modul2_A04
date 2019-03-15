@@ -5,8 +5,9 @@
 
 int main()
 {
-    pid_t child1, child2;
-    int pipes[2], status1, status2;
+    pid_t child1, child2, child3;
+    int pipes[2], status1, status2, status3;
+    char isi[100000];
     
     pipe(pipes);
     child1 = fork();
@@ -32,13 +33,21 @@ int main()
         {
             while ((wait(&status2)) > 0);
 
-            dup2(pipes[0], 0);
-            close(pipes[1]);
-            close(pipes[0]);
+            child3 = fork();
+            if(child2 == 0)
+            {
+                dup2(pipes[0], 0);
+                close(pipes[1]);
+                close(pipes[0]);
 
-            freopen("daftar.txt", "w", stdout);
-            char *grep[3] = {"grep", ".txt$", NULL};
-            execv("/bin/grep", grep);
+                char *grep[3] = {"grep", ".txt$", NULL};
+                execv("/bin/grep", grep);
+
+                int store = read(pipes[1],isi,sizeof(isi));
+                FILE *daftar = fopen("daftar.txt", "w+");
+                fputs(isi, daftar);
+                fclose(daftar);
+            }
         }
     }
 }
