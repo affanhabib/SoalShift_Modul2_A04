@@ -40,14 +40,14 @@ int main() {
 
     while(1) {
         struct dirent *de;
-	    char nama_awal[100], name[100];
+        char nama_awal[100], name[100];
     	char opo[100] = "/home/affan/modul2/gambar/";
     	char opo1[100];
     	char apa1[100];
 
     	DIR *dr = opendir("/home/affan/modul2/gambar"); 
 
-	    if (dr != NULL)	{
+        if (dr != NULL)	{
 		    while ((de = readdir(dr)) != NULL) {
 			    char *end = strrchr(de->d_name, '.');
 			    if(strcmp(end, ".png") == 0) {	
@@ -66,7 +66,6 @@ int main() {
                 }
             }
         }
-
         else
         { 
             printf("Could not open current directory"); 
