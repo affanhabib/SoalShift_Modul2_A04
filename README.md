@@ -41,11 +41,34 @@ Catatan : Tidak boleh menggunakan crontab.
 
         closedir(dr);
 	```
+	
+	Sedangkan untuk menjalankan secara otomatis menggunakan Daemon.
 
 2. Pada suatu hari Kusuma dicampakkan oleh Elen karena Elen dimenangkan oleh orang lain. Semua kenangan tentang Elen berada pada file bernama “elen.ku” pada direktori “hatiku”. Karena sedih berkepanjangan, tugas kalian sebagai teman Kusuma adalah membantunya untuk menghapus semua kenangan tentang Elen dengan membuat program C yang bisa mendeteksi owner dan group dan menghapus file “elen.ku” setiap 3 detik dengan syarat ketika owner dan grupnya menjadi “www-data”. Ternyata kamu memiliki kendala karena permission pada file “elen.ku”. Jadi, ubahlah permissionnya menjadi 777. Setelah kenangan tentang Elen terhapus, maka Kusuma bisa move on.
 Catatan: Tidak boleh menggunakan crontab
 
 	**Jawab** [source code](/soal2/hatiku/soal2.c) 
+	
+	Menghapus dengan *code* sebagai berikut
+	
+	```c
+	if ((dir = opendir ("/home/affan/modul2/hatiku/")) != NULL) {
+    		while ((rent = readdir(dir))!=NULL){
+			strcpy(file, rent->d_name);
+			struct stat st={0};
+			struct passwd *owner = getpwuid(st.st_uid);
+			struct group *group = getgrgid(st.st_gid);
+			if (strcmp(file,"elen.ku")==0 && strcmp(owner->pw_name,"www-data")==0 && strcmp(group->gr_name,"www-data")==0){
+				printf("%s %s\n",owner->pw_name,group->gr_name);
+				chmod(file,0777);
+				remove(file);
+			}
+		}
+    		closedir(dir);
+    	}
+	```
+	
+	Karena menghapus tiap 3 detik, daemon di-*setting* `sleep(3);`.
 
 3. Diberikan file campur2.zip. Di dalam file tersebut terdapat folder “campur2”. 
 Buatlah program C yang dapat :
