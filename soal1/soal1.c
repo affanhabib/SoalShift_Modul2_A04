@@ -49,25 +49,25 @@ int main() {
 
         if (dr != NULL)	{
             while ((de = readdir(dr)) != NULL) {
-                 char *end = strrchr(de->d_name, '.');
-                 if(strcmp(end, ".png") == 0) {	
-                     strcpy(opo1, opo);
-                     strcpy(apa1, opo);
+                char *end = strrchr(de->d_name, '.');
+                if(strcmp(end, ".png") == 0) {	
+                    strcpy(opo1, opo);
+                    strcpy(apa1, opo);
                      
-                     strcpy(nama_awal, de->d_name);
-                     de->d_name[strlen(de->d_name)-4]='\0';
-                     strcpy(name, de->d_name);
-						
+                    strcpy(nama_awal, de->d_name);
+                    de->d_name[strlen(de->d_name)-4]='\0';
+                    strcpy(name, de->d_name);
+                    
                     strcat(name,"_grey.png");
                     strcat(opo1, name);
                     strcat(apa1, nama_awal);
-
+                     
                     rename(apa1, opo1);
                 }
             }
         }
-        else
-        { 
+        
+        else { 
             printf("Could not open current directory"); 
         } 
 
