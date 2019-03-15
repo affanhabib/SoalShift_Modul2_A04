@@ -74,7 +74,7 @@ Catatan: Tidak boleh menggunakan crontab
 Buatlah program C yang dapat :
 	i. mengekstrak file zip tersebut.
 	ii. menyimpan daftar file dari folder “campur2” yang memiliki ekstensi .txt ke dalam file daftar.txt. 
-Catatan:  
+	Catatan:
 	* Gunakan fork dan exec.
 	* Gunakan minimal 3 proses yang diakhiri dengan exec.
 	* Gunakan pipe
@@ -94,6 +94,25 @@ Jika file itu pernah dibuka, program Anda akan membuat 1 file makan_sehat#.txt d
 	- Contoh nama file : makan_sehat1.txt, makan_sehat2.txt, dst
 
 	**Jawab** [source code](/soal4/soal4.c) 
+	
+	Untuk memeriksa dan membuat file makan_sehat#.txt
+	
+	```c
+	time_t now;
+	time(&now);
+	struct stat st = {0};
+	double diff = difftime(now,st.st_atime);
+	if(diff <= 30){
+		FILE *remind;
+		snprintf(newfile, 13,"%d.txt",count);
+
+		strcat(dir,newfile);
+		remind = fopen(dir,"w+");
+		fclose(remind);
+		count++;
+	}
+	```
+	Untuk memeriksa setiap 5 detik, pada daemon ditulis `sleep(5);`.
 
 5. Kerjakan poin a dan b di bawah:
 	a. Buatlah program c untuk mencatat log setiap menit dari file log pada syslog ke /home/[user]/log/[dd:MM:yyyy-hh:mm]/log#.log
